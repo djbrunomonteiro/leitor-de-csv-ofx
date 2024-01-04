@@ -1,12 +1,15 @@
-<p>SELECIONE UM ARQUIVO CSV / OFX</p>
-<form [formGroup]="form">
-  <input (change)="onArquivoSelecionado($event)" type="file" accept=".csv, .ofx">
+<p>SELECIONE UM ARQUIVO CSV</p>
+<input (change)="onArquivoSelecionado($event)" type="file" accept=".csv">
+<p>SELECIONE UM ARQUIVO OFX</p>
+<input (change)="onArquivoSelecionado($event)" type="file" accept=".ofx">
+<p>SELECIONE UM ARQUIVO PDF</p>
+<input (change)="onArquivoSelecionado($event)" type="file" accept=".pdf">
 
-</form>
 
 
 <div class="conteudo">
   @if (csvData$ | async; as itens) {
+    <h4>ARQUIVO CSV</h4>
     <table>
       <thead>
         <tr>
@@ -14,6 +17,60 @@
           <th>Descrição</th>
           <th>Identificador</th>
           <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        @for (item of itens; track $index) {
+          <tr>
+            @for (param of item | keyvalue; track $index) {
+              <td> <p>{{ param.value }}</p> </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  }
+
+  @if (ofxData$ | async; as itens) {
+
+    <h4>ARQUIVO OFX</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Identificador</th>
+          <th>Valor</th>
+          <th>Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        @for (item of itens; track $index) {
+          <tr>
+            @for (param of item | keyvalue; track $index) {
+              <td> <p>{{ param.value }}</p> </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  }
+
+  @if (pdfData$ | async; as itens) {
+
+    <h4>ARQUIVO PDF</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Identificador</th>
+          <th>Valor</th>
+          <th>Tipo</th>
         </tr>
       </thead>
       <tbody>
